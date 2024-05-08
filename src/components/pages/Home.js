@@ -10,13 +10,23 @@ const Home = () => {
   }, []);
 
   const loadUsers = async () => {
-    const result = await axios.get("http://localhost:3003/users");
-    setUser(result.data.reverse());
+    try {
+      const result = await axios.get("http://localhost:3003/users");
+      setUser(result.data.reverse());
+    } catch (error) {
+      console.error("Error loading users:", error);
+      // Handle the error gracefully (e.g., display an error message to the user)
+    }
   };
 
   const deleteUser = async (id) => {
-    await axios.delete(`http://localhost:3003/users/${id}`);
-    loadUsers();
+    try {
+      await axios.delete(`http://localhost:3003/users/${id}`);
+      loadUsers();
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      // Handle the error gracefully (e.g., display an error message to the user)
+    }
   };
 
   return (
