@@ -1,33 +1,34 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import usersDB from "../../db.json";
 
 const Home = () => {
-  const [users, setUser] = useState([]);
+  const [users, setUser] = useState(usersDB.users);
+  console.log(users.users);
+  // useEffect(() => {
+  //   loadUsers();
+  // }, []);
 
-  useEffect(() => {
-    loadUsers();
-  }, []);
+  // const loadUsers = async () => {
+  //   try {
+  //     const result = await axios.get("http://localhost:3003/users");
+  //     setUser(result.data.reverse());
+  //   } catch (error) {
+  //     console.error("Error loading users:", error);
+  //     // Handle the error gracefully (e.g., display an error message to the user)
+  //   }
+  // };
 
-  const loadUsers = async () => {
-    try {
-      const result = await axios.get("http://localhost:3003/users");
-      setUser(result.data.reverse());
-    } catch (error) {
-      console.error("Error loading users:", error);
-      // Handle the error gracefully (e.g., display an error message to the user)
-    }
-  };
-
-  const deleteUser = async (id) => {
-    try {
-      await axios.delete(`http://localhost:3003/users/${id}`);
-      loadUsers();
-    } catch (error) {
-      console.error("Error deleting user:", error);
-      // Handle the error gracefully (e.g., display an error message to the user)
-    }
-  };
+  // const deleteUser = async (id) => {
+  //   try {
+  //     await axios.delete(`http://localhost:3003/users/${id}`);
+  //     loadUsers();
+  //   } catch (error) {
+  //     console.error("Error deleting user:", error);
+  //     // Handle the error gracefully (e.g., display an error message to the user)
+  //   }
+  // };
 
   return (
     <div className="container">
@@ -60,12 +61,7 @@ const Home = () => {
                   >
                     Edit
                   </Link>
-                  <Link
-                    class="btn btn-danger"
-                    onClick={() => deleteUser(user.id)}
-                  >
-                    Delete
-                  </Link>
+                  <Link class="btn btn-danger">Delete</Link>
                 </td>
               </tr>
             ))}
